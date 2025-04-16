@@ -18,11 +18,14 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((requests) -> requests.anyRequest().authenticated());
-      //  http.formLogin(withDefaults());
-        http.sessionManagement(session ->
-                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        http.authorizeHttpRequests((requests) -> requests
+                        .anyRequest().authenticated()
+//                .requestMatchers("/contact").permitAll()
+//                .requestMatchers("/public/**").permitAll()
+//                .requestMatchers("/admin/**").denyAll()
+              );
         http.httpBasic(withDefaults());
+        http.csrf(csrf -> csrf.disable());
         return http.build();
     }
 }
